@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/orbis-hack/static/css/main.252feb98.css",
-    "main.js": "/orbis-hack/static/js/main.5838a154.js",
+    "main.js": "/orbis-hack/static/js/main.1070ebcf.js",
     "index.html": "/orbis-hack/index.html",
     "main.252feb98.css.map": "/orbis-hack/static/css/main.252feb98.css.map",
-    "main.5838a154.js.map": "/orbis-hack/static/js/main.5838a154.js.map"
+    "main.1070ebcf.js.map": "/orbis-hack/static/js/main.1070ebcf.js.map"
   },
   "entrypoints": [
     "static/css/main.252feb98.css",
-    "static/js/main.5838a154.js"
+    "static/js/main.1070ebcf.js"
   ]
 }
