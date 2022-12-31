@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/orbisHack/static/css/main.252feb98.css",
+    "main.js": "/orbisHack/static/js/main.5838a154.js",
+    "index.html": "/orbisHack/index.html",
+    "main.252feb98.css.map": "/orbisHack/static/css/main.252feb98.css.map",
+    "main.5838a154.js.map": "/orbisHack/static/js/main.5838a154.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.252feb98.css",
+    "static/js/main.5838a154.js"
+  ]
+}
