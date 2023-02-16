@@ -9,13 +9,14 @@ import commentsList from '../mockdata/commentsList';
 import { Web3Provider } from '@ethersproject/providers'
 // import { connector as metamask, hooks as mhooks } from '../services/connectToMetamask'
 // import krebit from "@krebitdao/reputation-passport";
-
+import { Rating } from 'react-simple-star-rating'
 
 const InitiateVocdoni = (category, productId) => {
 
   const [provider, setProvider] = useState('');
   const [account, setAccount] = useState('');
   const [signers, setSigners] = useState([]);
+  
 
 
   console.log(category);
@@ -38,6 +39,11 @@ const InitiateVocdoni = (category, productId) => {
 const ProductTable = ({ products, category }) => {
 
   const currentList = products.filter(product => product.category === category);
+  const [rating, setRating] = useState(0)
+  
+  const handleRating = (rate) => {
+    setRating(rate)
+  }
 
   return (
     <div className="overflow-x-auto relative mb-10">
@@ -50,6 +56,7 @@ const ProductTable = ({ products, category }) => {
             <th scope="col" className="py-3 px-6">Rating</th>
             <th scope="col" className="py-3 px-6">Votes</th>
             <th scope="col" className="py-3 px-6">Cast your vote</th>
+            <th scope="col" className="py-3 px-6">Rate the product</th>
           </tr>
         </thead>
         <tbody>
@@ -79,6 +86,16 @@ const ProductTable = ({ products, category }) => {
                     Vote
                   </button>
               </td>
+              <td>
+           <Rating
+              onClick={handleRating}
+              SVGclassName="inline-block"
+              size={25}
+              transition
+              allowFraction
+              showTooltip
+            />
+              </td>
           </tr>
           ))}
         </tbody>
@@ -96,12 +113,18 @@ const Comment = (props) => {
       </span>
       <div className="p-4 bg-white rounded-lg border border-gray-200 shadow-sm dark:bg-gray-700 dark:border-gray-600">
         <div className="justify-between items-center mb-3 sm:flex">
-          <time className={props.reputed=="true" ? "mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0" : "hidden"}>✅ Highly Reputed Author</time>
           <div className="text-sm font-normal text-gray-500 lex dark:text-gray-300">
             {props.authorName.substring(0, 3) + "..." + props.authorName.substring(props.authorName.length - 5)} commented on 
             <a href="#" className="font-semibold text-gray-900 dark:text-white hover:underline"> {props.linkText}</a>
+            <br></br>
+            <time className={props.reputed=="true" ? "mb-1 text-xs font-normal text-gray-400 sm:order-last sm:mb-0" : "hidden"}>✅ Highly Reputed Author</time>
             </div>
-        </div>
+            <button 
+                  type="vote"
+                  class="text-white mt-3 bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-4 py-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                  Upvote this review 
+            </button>  
+          </div>
         <div className="p-3 text-sm font-normal text-gray-500 rounded-lg border-gray-200 dark:bg-gray-600 dark:border-gray-500 dark:text-gray-300">
           {props.commentText}
         </div>
@@ -120,10 +143,14 @@ const Detailed = () => {
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
   const [comments, setComments] = useState([]);
+  const [query, setQuery] = useState('');
 
   useEffect(() => {
     setComments(commentsList.filter(comment => comment.category === pathnameValues[2]));
   }, [pathnameValues[2]]);
+  
+  const filtered = !query ? comments : comments.filter((comments) =>
+      comments.commentText.toLowerCase().includes(query.toLowerCase()));
 
   
 
@@ -184,7 +211,7 @@ const Detailed = () => {
         {/* <Accordion panels={panels} /> */}
 
         <ol class="relative border-l border-gray-200 dark:border-gray-700 mx-8 py-4">                  
-        {comments.map((comment) => (
+        {filtered.map((comment) => (
         <Comment
           avatarUrl={comment.avatarUrl}
           authorName={comment.authorName}
