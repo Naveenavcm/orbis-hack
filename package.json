@@ -18,6 +18,7 @@
     "siwe": "^1.1.6",
     "wagmi": "^0.9.5",
     "web-vitals": "^2.1.4"
+    "react-simple-star-rating": "^5.1.7",
   },
   "scripts": {
     "predeploy": "npm run build",
